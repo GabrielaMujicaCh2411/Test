@@ -1,0 +1,1 @@
+﻿Scaffold - DbContext "Data Source=.\SQLEXPRESS;Initial Catalog=Test;TrustServerCertificate=true,Integrated Security=True;" Microsoft.EntityFrameworkCore.SqlServer - OutputDir DbModel - Table dbo.Empleado, dbo.Cargo
