@@ -15,8 +15,8 @@ namespace Test.Domain.Model.DbModel
         {
         }
 
-        public virtual DbSet<Cargo> Cargo { get; set; }
-        public virtual DbSet<Empleado> Empleado { get; set; }
+        public virtual DbSet<Compra> Compra { get; set; }
+        public virtual DbSet<Cliente> Cliente { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -29,24 +29,24 @@ namespace Test.Domain.Model.DbModel
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Cargo>(entity =>
+            modelBuilder.Entity<Compra>(entity =>
             {
-                entity.Property(e => e.Descripcion).HasMaxLength(250);
+                entity.Property(e => e.ClienteId).HasMaxLength(1);
             });
 
-            modelBuilder.Entity<Empleado>(entity =>
+            modelBuilder.Entity<Cliente>(entity =>
             {
-                entity.Property(e => e.Afp)
-                    .HasColumnName("AFP")
+                entity.Property(e => e.Nombre)
+                    .HasColumnName("")
                     .HasMaxLength(50);
 
-                entity.Property(e => e.Apellidos).HasMaxLength(250);
+                entity.Property(e => e.Apellido).HasMaxLength(50);
 
-                entity.Property(e => e.FechaIngreso).HasColumnType("datetime");
+                entity.Property(e => e.SituacionLaboral).HasMaxLength(50);
 
-                entity.Property(e => e.FechaNacimiento).HasColumnType("datetime");
+                entity.Property(e => e.TipoCliente).HasMaxLength(50);
 
-                entity.Property(e => e.Nombre).HasMaxLength(250);
+                entity.Property(e => e.Nombre).HasMaxLength(50);
             });
         }
     }

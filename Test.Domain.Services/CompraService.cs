@@ -7,12 +7,12 @@ namespace Test.Domain.Services
 {
     public interface ICargoService
     {
-        Task<IEnumerable<Cargo>> TodosAsync();
+        Task<IEnumerable<Compra>> TodosAsync();
     }
 
-    public class CargoService : ICargoService
+    public class CompraService : ICargoService
     {
-        public Task<IEnumerable<Cargo>> TodosAsync()
+        public Task<IEnumerable<Compra>> TodosAsync()
         {
             throw new NotImplementedException();
         }

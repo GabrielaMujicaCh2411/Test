@@ -5,13 +5,13 @@ using Test.Domain.Services;
 
 namespace Test.WebApp.Controllers
 {
-    public class EmpleadoController : Controller
+    public class ClienteController : Controller
     {
         private readonly TestContext _context;
 
-        private readonly IEmpleadoService _service;
+        private readonly IClienteService _service;
 
-        public EmpleadoController(IEmpleadoService service, TestContext context)
+        public ClienteController(IClienteService service, TestContext context)
         {
             _context = context;
             this._service = service;
@@ -26,7 +26,7 @@ namespace Test.WebApp.Controllers
         // GET: Empleado/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Empleado == null)
+            if (id == null || _context.Cliente== null)
             {
                 return NotFound();
             }
@@ -52,26 +52,26 @@ namespace Test.WebApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nombre,Apellidos,FechaNacimiento,FechaIngreso,IdCargo,Sueldo,Afp")] Empleado empleado)
+        public async Task<IActionResult> Create([Bind("ClienteId,Nombre,Apellido,TipoCliente,SituacionLaboral,Estado")] Cliente cliente)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(empleado);
+                _context.Add(cliente);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(empleado);
+            return View(cliente);
         }
 
         // GET: Empleado/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Empleado == null)
+            if (id == null || _context.Cliente == null)
             {
                 return NotFound();
             }
 
-            var empleado = await _context.Empleado.FindAsync(id);
+            var empleado = await _context.Cliente.FindAsync(id);
             if (empleado == null)
             {
                 return NotFound();
@@ -84,9 +84,9 @@ namespace Test.WebApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Apellidos,FechaNacimiento,FechaIngreso,IdCargo,Sueldo,Afp")] Empleado empleado)
+        public async Task<IActionResult> Edit(int id, [Bind("ClienteId,Nombre,Apellido,TipoCliente,SituacionLaboral,Estado")] Cliente cliente)
         {
-            if (id != empleado.Id)
+            if (id != cliente.ClienteId)
             {
                 return NotFound();
             }
@@ -95,12 +95,12 @@ namespace Test.WebApp.Controllers
             {
                 try
                 {
-                    _context.Update(empleado);
+                    _context.Update(cliente);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EmpleadoExists(empleado.Id))
+                    if (!ClienteExists(cliente.ClienteId))
                     {
                         return NotFound();
                     }
@@ -111,19 +111,19 @@ namespace Test.WebApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(empleado);
+            return View(cliente);
         }
 
         // GET: Empleado/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Empleado == null)
+            if (id == null || _context.Cliente == null)
             {
                 return NotFound();
             }
 
-            var empleado = await _context.Empleado
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var empleado = await _context.Cliente
+                .FirstOrDefaultAsync(m => m.ClienteId == id);
             if (empleado == null)
             {
                 return NotFound();
@@ -137,23 +137,23 @@ namespace Test.WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Empleado == null)
+            if (_context.Cliente == null)
             {
-                return Problem("Entity set 'TestWebAppContext.Empleado'  is null.");
+                return Problem("Entity set 'TestWebAppContext.Cliente'  is null.");
             }
-            var empleado = await _context.Empleado.FindAsync(id);
-            if (empleado != null)
+            var cliente = await _context.Cliente.FindAsync(id);
+            if (cliente != null)
             {
-                _context.Empleado.Remove(empleado);
+                _context.Cliente.Remove(cliente);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool EmpleadoExists(int id)
+        private bool ClienteExists(int id)
         {
-            return _context.Empleado.Any(e => e.Id == id);
+            return _context.Cliente.Any(e => e.ClienteId == id);
         }
     }
 }

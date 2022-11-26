@@ -10,8 +10,8 @@ builder.Services.AddDbContext<TestContext>(options =>
 builder.Services.AddControllersWithViews();
 
 //Injección de dependencias
-builder.Services.AddScoped<IEmpleadoService, EmpleadoService>();
-builder.Services.AddScoped<ICargoService, CargoService>();
+builder.Services.AddScoped<IClienteService, ClienteService>();
+builder.Services.AddScoped<ICargoService, CompraService>();
 
 var app = builder.Build();
 

@@ -10,13 +10,13 @@ using Test.Domain.Services;
 
 namespace Test.WebApp.Controllers
 {
-    public class CargoController : Controller
+    public class CompraController : Controller
     {
         private readonly TestContext _context;
 
-        private readonly IEmpleadoService _service;
+        private readonly IClienteService _service;
 
-        public CargoController(IEmpleadoService service, TestContext context)
+        public CompraController(IClienteService service, TestContext context)
         {
             _context = context;
             this._service = service;
@@ -25,18 +25,18 @@ namespace Test.WebApp.Controllers
         // GET: Cargo
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Cargo.ToListAsync());
+            return View(await _context.Compra.ToListAsync());
         }
 
         // GET: Cargo/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Cargo == null)
+            if (id == null || _context.Compra == null)
             {
                 return NotFound();
             }
 
-            var cargo = await _context.Cargo.FirstOrDefaultAsync(m => m.Id == id);
+            var cargo = await _context.Compra.FirstOrDefaultAsync(m => m.ClienteId == id);
             if (cargo == null)
             {
                 return NotFound();
@@ -54,7 +54,7 @@ namespace Test.WebApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Descripcion")] Cargo cargo)
+        public async Task<IActionResult> Create([Bind("ClienteId,NumeroCompra")] Compra cargo)
         {
             if (ModelState.IsValid)
             {
@@ -68,12 +68,12 @@ namespace Test.WebApp.Controllers
         // GET: Cargo/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Cargo == null)
+            if (id == null || _context.Compra == null)
             {
                 return NotFound();
             }
 
-            var cargo = await _context.Cargo.FindAsync(id);
+            var cargo = await _context.Compra.FindAsync(id);
             if (cargo == null)
             {
                 return NotFound();
@@ -84,9 +84,9 @@ namespace Test.WebApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Descripcion")] Cargo cargo)
+        public async Task<IActionResult> Edit(int id, [Bind("ClienteId,NumeroCompra")] Compra cargo)
         {
-            if (id != cargo.Id)
+            if (id != cargo.ClienteId)
             {
                 return NotFound();
             }
@@ -100,7 +100,7 @@ namespace Test.WebApp.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CargoExists(cargo.Id))
+                    if (!CargoExists(cargo.ClienteId))
                     {
                         return NotFound();
                     }
@@ -117,13 +117,13 @@ namespace Test.WebApp.Controllers
         // GET: Cargo/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Cargo == null)
+            if (id == null || _context.Compra == null)
             {
                 return NotFound();
             }
 
-            var cargo = await _context.Cargo
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var cargo = await _context.Compra
+                .FirstOrDefaultAsync(m => m.ClienteId == id);
             if (cargo == null)
             {
                 return NotFound();
@@ -137,14 +137,14 @@ namespace Test.WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Cargo == null)
+            if (_context.Compra == null)
             {
-                return Problem("Entity set 'TestContext.Cargo'  is null.");
+                return Problem("Entity set 'TestContext.Compra'  is null.");
             }
-            var cargo = await _context.Cargo.FindAsync(id);
+            var cargo = await _context.Compra.FindAsync(id);
             if (cargo != null)
             {
-                _context.Cargo.Remove(cargo);
+                _context.Compra.Remove(cargo);
             }
 
             await _context.SaveChangesAsync();
@@ -153,7 +153,7 @@ namespace Test.WebApp.Controllers
 
         private bool CargoExists(int id)
         {
-            return _context.Cargo.Any(e => e.Id == id);
+            return _context.Compra.Any(e => e.ClienteId == id);
         }
     }
 }
